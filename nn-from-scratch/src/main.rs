@@ -1,3 +1,5 @@
+use std::f64::consts::E;
+
 fn main() {
     // layers: input -> hidden -> output. 3 nodes each
     let (i1, i2, i3) = (0.9, 0.1, 0.8);
@@ -24,7 +26,13 @@ fn forward(inputs:Vec<f64>, weights:Vec<Vec<f64>>) -> Vec<f64>{
             output[x] += i * weights[x][y];
             println!("I: {} * W: {} = {}", i, weights[x][y], output[x]);
         }
+
+        println!("Output pre-sigm: {:?}", output[x]);
+
+        output[x] = apply_sigmoid(output[x]);
     }
 
     return output;
 }
+
+fn apply_sigmoid(input:f64) -> f64 { 1./(1. + f64::powf(E, -input)) }
