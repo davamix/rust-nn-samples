@@ -21,10 +21,10 @@ fn main() {
     let o_weights = vec![vec![ow11, ow21, ow31], vec![ow12, ow22, ow32], vec![ow13, ow23, ow33]];
 
     let mut output;
-    output = forward(inputs, h_weights);
+    output = forward(inputs, h_weights); // layer 2 output
     println!("Output layer 2: {:?}", output);
 
-    output = forward(output, o_weights);
+    output = forward(output, o_weights); // layer 3 output
     println!("Output layer 3: {:?}", output);
 }
 
@@ -34,13 +34,13 @@ fn forward(inputs:Vec<f64>, weights:Vec<Vec<f64>>) -> Vec<f64>{
 
     println!("outputs len: {}", output.len());
 
-    for (x, w) in weights.iter().enumerate() {
+    for (x, _w) in weights.iter().enumerate() {
         for (y, i) in inputs.iter().enumerate() {
             output[x] += i * weights[x][y];
-            println!("I: {} * W: {} = {}", i, weights[x][y], output[x]);
+            println!("I: {:.3} * W: {} = {:.3}", i, weights[x][y], output[x]);
         }
 
-        println!("Output pre-sigm: {:?}", output[x]);
+        println!("Output pre-sigm: {:.3}", output[x]);
 
         output[x] = apply_sigmoid(output[x]);
     }
